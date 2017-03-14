@@ -31,11 +31,13 @@ struct Operators {
     int index;
 };
 
+void initExpression(struct Expression* exp);
+
 // 建立操作数结点
-struct ExpNode *getNumNode(int i);
+struct ExpNode *getNumNode(int i, struct Expression* exp);
 
 // 建立操作符结点
-struct ExpNode *getSumNode(struct ExpNode *left, struct ExpNode *right);
+struct ExpNode *getSumNode(struct ExpNode *left, struct ExpNode *right, struct Expression* exp);
 
 // 初始化Operators, 用来存储按后续遍历生成的操作符序列
 struct Operators *initOperators(struct Expression *exp);
