@@ -10,6 +10,8 @@
 
 #define ADD '+'
 
+#include "stack.h"
+
 enum ExpKind {
     EXP_INT, EXP_SUM
 };
@@ -44,5 +46,8 @@ struct Operators *initOperators(struct Expression *exp);
 
 // 按后续遍历生成的操作符序列, 存储在Operators中
 void getExpression(struct ExpNode *expression, struct Operators *operas);
+
+
+void compile(struct ExpNode *exp, SqStack *S);
 
 #endif

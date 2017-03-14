@@ -9,7 +9,6 @@
 #define _STACK_H__
 
 #include <stdbool.h>
-#include "SumCompiler.h"
 
 typedef char SElemType;
 #define STACK_INIT_SIZE 100
@@ -21,9 +20,9 @@ typedef struct {
     int stacksize;
 }SqStack;
 
-void InitStack(SqStack *S);
+SqStack *InitStack();
 
-void Push(SqStack *s, SElemType e);
+void Push(SqStack *S, SElemType e);
 
 void Pop(SqStack *S, SElemType *e);
 

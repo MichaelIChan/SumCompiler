@@ -10,8 +10,9 @@
 #include <stdlib.h>
 #include <malloc.h>
 
-void InitStack(SqStack *S)
+SqStack *InitStack()
 {
+    SqStack *S = (SqStack *)malloc(sizeof(SqStack));
     S->base = (SElemType *)malloc(STACK_INIT_SIZE * sizeof(SElemType));
 
     if (S->base == NULL) {
@@ -20,6 +21,8 @@ void InitStack(SqStack *S)
     }
     S->top = S->base;
     S->stacksize = STACK_INIT_SIZE;
+
+    return S;
 }
 
 void Push(SqStack *S, SElemType e)

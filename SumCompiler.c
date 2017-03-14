@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "stack.h"
 #include "SumCompiler.h"
 
 void initExpression(struct Expression* exp) {
@@ -11,7 +12,7 @@ void initExpression(struct Expression* exp) {
 struct ExpNode *getNumNode(int i, struct Expression* exp) {
     struct ExpNode *p = (struct ExpNode *)malloc(sizeof(struct ExpNode));
     p->kind = EXP_INT;
-    p->opera = i;
+    p->opera = i + 48;
     exp->count++;
     return p;
 }
@@ -49,5 +50,33 @@ void getExpression(struct ExpNode *expression, struct Operators *operas) {
         getExpression(expression->right, operas);
     } else {
         printf("Error! 'opera' is wrong\n");
+    }
+}
+
+void Add(SqStack *S) {
+    SElemType *numA = (SElemType *)malloc(sizeof(SElemType));
+    SElemType *numB = (SElemType *)malloc(sizeof(SElemType));
+    Pop(S, numA); Pop(S, numB);
+    printf("Add\n");
+    Push(S, *numA + *numB);
+}
+
+void compile(struct ExpNode *exp, SqStack *S) {
+    switch (exp->kind) {
+        case EXP_INT: {
+            struct ExpNode *p = exp;
+            Push(S, p->opera);
+            printf("Push %c\n", p->opera);
+            break;
+        }
+        case EXP_SUM: {
+            struct ExpNode *p = exp;
+            compile(p->left, S);
+            compile(p->right, S);
+            Add(S);
+            break;
+        }
+        default:
+            break;
     }
 }
